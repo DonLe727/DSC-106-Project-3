@@ -4,7 +4,7 @@
 
 Hi, we are Team 23: Don Le, Raynard Taneka, and Krishang Khandelwal. For Project 3, we chose the
 CMIP6 climate dataset. We are looking at monthly near-surface air temperature from one NASA GISS
-model under three possible emissions scenarios.
+model under three possible emissions scenarios: ssp126, ssp245, and ssp585.
 
 Our current question is: where could high emissions add the most heat compared with a low-emissions
 future? We chose this because the difference between the scenarios is easier to understand than three
