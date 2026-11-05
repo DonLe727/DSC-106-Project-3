@@ -1,11 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two Futures, One Planet</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script type="module" src="main.js"></script>
 </head>
 <body>
-    
+  <main>
+    <p class="eyebrow">DSC 106 Project 3 · Team 23</p>
+    <h1>Two Futures, One Planet</h1>
+    <p class="question">Where could high emissions add the most heat compared with a low-emissions future?</p>
+
+    <section class="controls" aria-label="Map controls">
+      <label>
+        Year: <strong id="year-value">2020</strong>
+        <input id="year-slider" type="range" min="2020" max="2100" step="20" value="2020">
+      </label>
+      <label>
+        Month: <strong id="month-value">January</strong>
+        <input id="month-slider" type="range" min="1" max="12" step="1" value="1">
+      </label>
+    </section>
+
+    <section class="chart-section">
+      <div class="chart-heading">
+        <h2 id="chart-title">January 2020 temperature difference</h2>
+        <p>SSP5-8.5 minus SSP1-2.6, in °C</p>
+      </div>
+      <div id="map" aria-live="polite"></div>
+      <div id="legend"></div>
+      <p class="hint">Move the sliders to compare years and months. Hover over a cell for its location and value.</p>
+    </section>
+
+    <section class="notes">
+      <h2>What the map shows</h2>
+      <p>
+        Each cell compares the same NASA GISS climate model under a high-emissions scenario and a
+        low-emissions scenario. Red means the high-emissions future is warmer; blue means it is cooler.
+        The cells are averages of nearby model grid points so the visualization can load in a browser.
+      </p>
+      <p class="source">
+        Source: CMIP6 ScenarioMIP, NASA-GISS GISS-E2-1-G, monthly near-surface air temperature.
+      </p>
+    </section>
+  </main>
+  <div id="tooltip" role="status"></div>
 </body>
 </html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project 3 Checkpoint</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .info { background:white; border:1px solid #c7c1b7; padding:18px 22px; margin:18px 0; line-height:1.5; }
+    .graphs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    figure { margin:0; padding:10px; border:1px solid #c7c1b7; background:white; }
+    figure img { display:block; width:100%; }
+    figcaption { padding:8px 4px 2px; color:#555; }
+    .prototype { display:inline-block; padding:10px 14px; background:#222; color:white; }
+    @media(max-width:700px) { .graphs { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">DSC 106 Project 3 Checkpoint</p>
+    <h1>Two Futures, One Planet</h1>
+
+    <section class="info">
+      <p><strong>Team 23:</strong> Don Le, Raynard Taneka, and Krishang Khandelwal</p>
+      <p><strong>Dataset:</strong> CMIP6 monthly near-surface air temperature from the NASA GISS model.</p>
+      <p><strong>Question:</strong> Where could high emissions add the most heat compared with a low-emissions future?</p>
+      <p>
+        We are comparing SSP5-8.5 with SSP1-2.6 across time. Our current direction is an interactive
+        heatmap with year and month sliders.
+      </p>
+      <a class="prototype" href="index.html">Open the current D3 prototype</a>
+    </section>
+
+    <h2>Exploratory graphs</h2>
+    <div class="graphs">
+      <figure><img src="checkpoint/temperature-ssp126.png" alt="Temperature under SSP1-2.6"><figcaption>1. January 2020 under the low-emissions scenario.</figcaption></figure>
+      <figure><img src="checkpoint/temperature-ssp245.png" alt="Temperature under SSP2-4.5"><figcaption>2. January 2020 under the middle scenario.</figcaption></figure>
+      <figure><img src="checkpoint/temperature-ssp585.png" alt="Temperature under SSP5-8.5"><figcaption>3. January 2020 under the high-emissions scenario.</figcaption></figure>
+      <figure><img src="checkpoint/difference-2020.png" alt="Scenario difference in 2020"><figcaption>4. The high-minus-low difference is still fairly small in 2020.</figcaption></figure>
+      <figure><img src="checkpoint/difference-2100.png" alt="Scenario difference in 2100"><figcaption>5. By 2100, the scenario gap is much larger, especially near the poles.</figcaption></figure>
+      <figure><img src="checkpoint/global-trends.png" alt="Global temperature trend by scenario"><figcaption>6. Global averages separate more clearly later in the century.</figcaption></figure>
+    </div>
+  </main>
+</body>
+</html>
