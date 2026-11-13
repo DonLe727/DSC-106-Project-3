@@ -95,6 +95,60 @@ h1 {
   stroke-width: 1.2;
 }
 
+.map-tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 30px;
+  margin-bottom: 12px;
+}
+
+.toggle {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-size: .95rem;
+  cursor: pointer;
+}
+
+#reset-zoom {
+  padding: 5px 12px;
+  border: 1px solid #b63a32;
+  background: white;
+  color: #b63a32;
+  font: inherit;
+  font-size: .9rem;
+  cursor: pointer;
+}
+
+#reset-zoom:hover { background: #b63a32; color: white; }
+
+#map svg {
+  cursor: crosshair;
+  user-select: none;
+}
+
+.selection-box {
+  fill: rgba(20, 20, 20, .12);
+  stroke: #161616;
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+  pointer-events: none;
+}
+
+.toggle input { accent-color: #b63a32; }
+
+.outlines {
+  fill: none;
+  stroke: #1f1f1f;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.outlines .coast { stroke-width: .7; stroke-opacity: .85; }
+.outlines .border { stroke-width: .35; stroke-opacity: .5; }
+
 .hint, .source {
   color: #656565;
   font-size: .9rem;
