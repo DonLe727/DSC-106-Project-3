@@ -8,7 +8,7 @@
 
 - Don Le
 - Raynard Taneka
-- Krishang Khandelwal
+- Ethan Lam
 
 ## Dataset
 

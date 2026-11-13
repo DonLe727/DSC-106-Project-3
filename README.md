@@ -4,7 +4,7 @@
 
 - Don Le
 - Raynard Taneka
-- Krishang Khandelwal
+- Ethan Lam
 
 ## Project direction
 
@@ -25,7 +25,7 @@ to the current interactive prototype.
 
 - **Don:** dataset research and exploratory notebook
 - **Raynard:** web-ready data, first D3 heatmap, checkpoint page, and year animation
-- **Krishang:** interaction refinement, final rationale/process write-up, mobile checks, and final video polish
+- **Ethan:** interaction refinement, final rationale/process write-up, mobile checks, and final video polish
 
 ## Work intentionally left for the next teammate
 

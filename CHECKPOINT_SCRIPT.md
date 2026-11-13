@@ -2,7 +2,7 @@
 
 **Show `checkpoint.html` at the top of the page.**
 
-Hi, we are Team 23: Don Le, Raynard Taneka, and Krishang Khandelwal. For Project 3, we chose the
+Hi, we are Team 23: Don Le, Raynard Taneka, and Ethan Lam. For Project 3, we chose the
 CMIP6 climate dataset. We are looking at monthly near-surface air temperature from one NASA GISS
 model under three possible emissions scenarios: ssp126, ssp245, and ssp585.
 
