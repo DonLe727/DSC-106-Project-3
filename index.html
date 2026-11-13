@@ -24,6 +24,10 @@
         Month: <strong id="month-value">January</strong>
         <input id="month-slider" type="range" min="1" max="12" step="1" value="1">
       </label>
+      <div class="animation-row">
+        <button id="play-years" type="button" aria-pressed="false">▶ Play years</button>
+        <span id="animation-status" aria-live="polite">Paused at 2020</span>
+      </div>
     </section>
 
     <section class="chart-section">
@@ -40,7 +44,7 @@
       </div>
       <div id="map" aria-live="polite"></div>
       <div id="legend"></div>
-      <p class="hint">Move the sliders to compare years and months. Hover over the map for the country, state, coordinates, and value.
+      <p class="hint">Move the sliders or play the timeline to compare years and months. Hover over the map for the country, state, coordinates, and value.
         Drag a box to zoom in; double-click or press Reset zoom to zoom back out.</p>
     </section>
 

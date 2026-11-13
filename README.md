@@ -24,12 +24,12 @@ to the current interactive prototype.
 ## Current team split
 
 - **Don:** dataset research and exploratory notebook
-- **Raynard:** web-ready data, first D3 heatmap, and checkpoint page
+- **Raynard:** web-ready data, first D3 heatmap, checkpoint page, and year animation
 - **Krishang:** interaction refinement, final rationale/process write-up, mobile checks, and final video polish
 
 ## Work intentionally left for the next teammate
 
-- Add one more useful interaction, such as play/pause through the selected years or scenario switching.
+- Decide whether scenario switching would add enough value without making the page too busy.
 - Add a clearer land reference or a few annotations for places with the largest changes.
 - Finish the design rationale and development-process sections, including each member's hours.
 - Test the final page on different screen sizes and help record the final video.

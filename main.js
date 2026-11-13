@@ -40,10 +40,14 @@ const fullLat = [90, -90];
 const minLonSpan = 30; // tightest zoom: 30° of longitude across the map
 const yearSlider = d3.select("#year-slider");
 const monthSlider = d3.select("#month-slider");
+const playButton = d3.select("#play-years");
+const animationStatus = d3.select("#animation-status");
+const years = [2020, 2040, 2060, 2080, 2100];
 
 let allData = [];
 let countryFeatures = [];
 let statesByCountry = new Map();
+let playbackTimer = null;
 
 function ringContains(ring, lon, lat) {
   let inside = false;
@@ -239,6 +243,44 @@ function updateOutlines() {
   outlineLayer.style("display", outlineToggle.property("checked") ? null : "none");
 }
 
+function stopPlayback() {
+  if (playbackTimer) clearInterval(playbackTimer);
+  playbackTimer = null;
+  playButton.attr("aria-pressed", "false").text("▶ Play years");
+  animationStatus.text(`Paused at ${yearSlider.property("value")}`);
+}
+
+function advanceYear() {
+  const current = +yearSlider.property("value");
+  const currentIndex = years.indexOf(current);
+
+  if (currentIndex === years.length - 1) {
+    stopPlayback();
+    return;
+  }
+
+  const next = years[currentIndex + 1];
+  yearSlider.property("value", next);
+  animationStatus.text(`Showing ${next}`);
+  updateMap();
+}
+
+function togglePlayback() {
+  if (playbackTimer) {
+    stopPlayback();
+    return;
+  }
+
+  if (+yearSlider.property("value") === years[years.length - 1]) {
+    yearSlider.property("value", years[0]);
+    updateMap();
+  }
+
+  playButton.attr("aria-pressed", "true").text("❚❚ Pause years");
+  animationStatus.text(`Showing ${yearSlider.property("value")}`);
+  playbackTimer = setInterval(advanceYear, 1200);
+}
+
 async function drawOutlines() {
   const world = await d3.json("data/countries-110m.json");
   const countries = world.objects.countries;
@@ -280,7 +322,11 @@ async function start() {
   drawLegend();
   updateMap();
   setUpDragZoom();
-  yearSlider.on("input", updateMap);
+  playButton.on("click", togglePlayback);
+  yearSlider.on("input", () => {
+    stopPlayback();
+    updateMap();
+  });
   monthSlider.on("input", updateMap);
 }
 
