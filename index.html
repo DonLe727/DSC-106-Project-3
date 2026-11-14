@@ -59,6 +59,42 @@
         Source: CMIP6 ScenarioMIP, NASA-GISS GISS-E2-1-G, monthly near-surface air temperature.
       </p>
     </section>
+
+    <section id="writeup">
+      <h2>Design Rationale</h2>
+      
+      <h3>Visual Encodings</h3>
+      <p>Our main visualization stems from a heatmap that depicts the variety of temperature differences across the whole globe. On top of this heatmap is an outlined map of all countries on Earth.</p>
+      <p>The map is a grid of rectangles. Each rectangle sits at its longitude and latitude, reflecting coordinate values for rectangles at a certain position on Earth. Color shows the temperature difference between the two scenarios (SSP5-8.5 and SSP1-2.6). We used a red-to-blue diverging scale centered on zero. The data has a real midpoint: neutral white at zero meaning the two futures match, red signifying high emissions is warmer, and blue representing high emission scenario has cooler temperatures.</p>
+      <p>The color scale stops at &plusmn;12&deg;C. A few cells go past that (the largest is about 22&deg;C), but they are under 1% of the data. Stretching the scale to fit them made the rest of the map look pale, so we capped it and marked the ends of the legend with &le; and &ge;. The tooltip still shows the exact value.</p>
+      <p>Country outlines are drawn on top as thin dark lines so readers can find places they know. They can be turned off to alleviate any distracting lines.</p>
+
+      <h3>Alternatives We Considered</h3>
+      <p>Our first idea was three maps side by side, one per scenario. In our exploratory graphs those maps looked almost the same, because the difference between the equator and the poles is far larger than the difference between scenarios. Subtracting the low scenario from the high one removed that and left only the part we care about, so we moved to a single difference map.</p>
+      <p>We also made a line chart of the global average for each scenario. It shows when the futures split apart but not where, and our question is about where, so the map became the main view.</p>
+      <p>For the timeline, the play button first stepped by year only. We changed it to move month by month with a color fade so the seasonal swing near the poles is visible while it plays.</p>
+
+      <h3>Interactions</h3>
+      <ul>
+        <li><strong>Time Slider &amp; Playback:</strong> Because we realized that climate change is a progressive state, we implemented the time slider to allow the user to observe how the two scenarios gradually change over time.</li>
+        <li><strong>Details (Tooltips):</strong> Hovering over a certain latitude and longitude reveals the country, state, precise coordinates, and the temperature difference with respect to the grid. This allows for a more thorough analysis of the data without overwhelming the user with static text and labels.</li>
+        <li><strong>Brushing and Zooming:</strong> Users can drag a box to zoom into specific regions and double click to reset. This allows the user to explore certain areas and warming hotspots that are difficult to analyze at a global scale.</li>
+        <li><strong>Gradual Color Change:</strong> Users see a gradual color change as they scroll through months and years. This feature serves as a medium to allow the user to get a sense of change-over-time through switching between a certain point of time. By animating the diverging color scale, viewers can spot emerging regional hotspots and possible long-term trends that would be not obvious in a static graph.</li>
+      </ul>
+    </section>
+
+    <section id="development-process">
+      <h2>Development Process</h2>
+      
+      <h3>Division of Work</h3>
+      <ul>
+        <li><strong>Krishang Khandelwal:</strong> Wrote the checkpoint script and recorded the checkpoint video, wrote the rationale and process sections, and did the final checks on different screen sizes.</li>
+        <li><strong>Don Le:</strong> Initially filtered and completed exploratory analysis on the dataset, implemented and adjusted visual interactions, troubleshooted implementations, and contributed to the final write-up.</li>
+        <li><strong>Raynard Taneka:</strong> Prepared the web-ready climate data, created the first interactive D3 heatmap and checkpoint webpage, and added the year playback animation.</li>
+      </ul>
+
+      <p>We spent around 40 human-hours each developing this illustration from data exploration and brainstorming to final outputs. It took us a long time to filter our dataset to answer the question we specifically wanted to answer and how. Our overall workflow was trying to understand the dataset first, then with the available data, provide a question that can reasonably be answered.</p>
+    </section>
   </main>
   <div id="tooltip" role="status"></div>
 </body>
