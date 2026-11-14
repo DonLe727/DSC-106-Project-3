@@ -71,7 +71,7 @@ h1 {
   font-size: .9rem;
 }
 
-#play-years {
+#play-timeline {
   min-width: 130px;
   padding: 7px 12px;
   border: 1px solid #b63a32;
@@ -81,8 +81,8 @@ h1 {
   cursor: pointer;
 }
 
-#play-years:hover,
-#play-years[aria-pressed="true"] {
+#play-timeline:hover,
+#play-timeline[aria-pressed="true"] {
   background: #b63a32;
   color: white;
 }

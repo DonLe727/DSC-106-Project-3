@@ -40,9 +40,11 @@ const fullLat = [90, -90];
 const minLonSpan = 30; // tightest zoom: 30° of longitude across the map
 const yearSlider = d3.select("#year-slider");
 const monthSlider = d3.select("#month-slider");
-const playButton = d3.select("#play-years");
+const playButton = d3.select("#play-timeline");
 const animationStatus = d3.select("#animation-status");
 const years = [2020, 2040, 2060, 2080, 2100];
+const playbackDelay = 1200; // milliseconds per month while playing
+const colorFade = 800; // milliseconds for cells to blend from one month's colors to the next
 
 let allData = [];
 let countryFeatures = [];
@@ -126,11 +128,19 @@ function updateMap() {
   d3.select("#month-value").text(monthNames[month - 1]);
   d3.select("#chart-title").text(`${monthNames[month - 1]} ${year} temperature difference`);
 
-  cellLayer.selectAll("rect.cell")
+  // New cells get their color right away; existing cells fade to the new month's color.
+  const cells = cellLayer.selectAll("rect.cell")
     .data(current, d => `${d.lat}-${d.lon}`)
-    .join("rect")
-    .attr("class", "cell")
-    .attr("fill", d => color(d.difference))
+    .join(enter => enter.append("rect")
+      .attr("class", "cell")
+      .attr("fill", d => color(d.difference)));
+
+  cells.transition("color")
+    .duration(colorFade)
+    .ease(d3.easeLinear)
+    .attr("fill", d => color(d.difference));
+
+  cells
     .on("pointermove", (event, d) => {
       const northSouth = d.lat >= 0 ? "N" : "S";
       const lon = cleanLongitude(d.lon);
@@ -243,25 +253,36 @@ function updateOutlines() {
   outlineLayer.style("display", outlineToggle.property("checked") ? null : "none");
 }
 
+function currentLabel() {
+  const month = +monthSlider.property("value");
+  return `${monthNames[month - 1]} ${yearSlider.property("value")}`;
+}
+
 function stopPlayback() {
   if (playbackTimer) clearInterval(playbackTimer);
   playbackTimer = null;
-  playButton.attr("aria-pressed", "false").text("▶ Play years");
-  animationStatus.text(`Paused at ${yearSlider.property("value")}`);
+  playButton.attr("aria-pressed", "false").text("▶ Play timeline");
+  animationStatus.text(`Paused at ${currentLabel()}`);
 }
 
-function advanceYear() {
-  const current = +yearSlider.property("value");
-  const currentIndex = years.indexOf(current);
+// Step one month forward; after December, move to January of the next year.
+function advanceMonth() {
+  const month = +monthSlider.property("value");
+  const yearIndex = years.indexOf(+yearSlider.property("value"));
 
-  if (currentIndex === years.length - 1) {
+  if (month === 12 && yearIndex === years.length - 1) {
     stopPlayback();
     return;
   }
 
-  const next = years[currentIndex + 1];
-  yearSlider.property("value", next);
-  animationStatus.text(`Showing ${next}`);
+  if (month === 12) {
+    monthSlider.property("value", 1);
+    yearSlider.property("value", years[yearIndex + 1]);
+  } else {
+    monthSlider.property("value", month + 1);
+  }
+
+  animationStatus.text(`Showing ${currentLabel()}`);
   updateMap();
 }
 
@@ -271,14 +292,16 @@ function togglePlayback() {
     return;
   }
 
-  if (+yearSlider.property("value") === years[years.length - 1]) {
+  // Pressing play at the very end starts over from the beginning.
+  if (+monthSlider.property("value") === 12 && +yearSlider.property("value") === years[years.length - 1]) {
+    monthSlider.property("value", 1);
     yearSlider.property("value", years[0]);
     updateMap();
   }
 
-  playButton.attr("aria-pressed", "true").text("❚❚ Pause years");
-  animationStatus.text(`Showing ${yearSlider.property("value")}`);
-  playbackTimer = setInterval(advanceYear, 1200);
+  playButton.attr("aria-pressed", "true").text("❚❚ Pause timeline");
+  animationStatus.text(`Showing ${currentLabel()}`);
+  playbackTimer = setInterval(advanceMonth, playbackDelay);
 }
 
 async function drawOutlines() {
@@ -327,7 +350,10 @@ async function start() {
     stopPlayback();
     updateMap();
   });
-  monthSlider.on("input", updateMap);
+  monthSlider.on("input", () => {
+    stopPlayback();
+    updateMap();
+  });
 }
 
 start().catch(error => {
